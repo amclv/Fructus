@@ -15,11 +15,15 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(fruits) { item in
-                    FruitRowView(fruit: item)
-                        .padding(.vertical, 4)
-                }
-            }
+                // .shuffled() shuffles the list view randomly.
+                ForEach(fruits.shuffled()) { item in
+                    NavigationLink(destination: FruitDetailView(fruit: item)) {
+                        FruitRowView(fruit: item)
+                            .padding(.vertical, 4)
+                    } //: NavigationLink
+                } //: ForEach
+            } //: List
+            .navigationTitle("Fruits")
         } //: NAVIGATION
     }
 }
@@ -27,6 +31,8 @@ struct ContentView: View {
 // MARK: - Preview -
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(fruits: fruitsData)
+        Group {
+            ContentView(fruits: fruitsData)
+        }
     }
 }
